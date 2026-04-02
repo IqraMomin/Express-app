@@ -18,6 +18,13 @@ const category = [
     {id:2,categoryName:"Accessories"},
     
 ]
+
+app.use((req,res,next)=>{
+    const method = req.method;
+    const endpoint = req.url;
+    console.log(`${method} request is made to ${endpoint}`);
+    next();
+})
 app.get("/welcome/:username",(req,res)=>{
     const username = req.params.username;
     const role = req.query.role;

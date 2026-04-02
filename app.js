@@ -1,23 +1,17 @@
 const express = require('express');
 const app = express();
+const productRouter = require("./routes/products")
+const categoriesRouter = require('./routes/categories');
 
 const port = 4000;
 
 app.use(express.json());
 
-const products = [
-    {id:1,productName:"Mobile"},
-    {id:2,productName:"Laptop"},
-    {id:3,productName:"Computers"},
-    {id:4,productName:"Mobile Cover"},
-    {id:5,productName:"Laptop Case"},     
-]
+app.use("/products",productRouter);
 
-const categories = [
-    {id:1,categoryName:"Electronics"},
-    {id:2,categoryName:"Accessories"},
-    
-]
+app.use("/categories",categoriesRouter);
+
+
 
 app.use((req,res,next)=>{
     const method = req.method;
@@ -30,33 +24,7 @@ app.get("/welcome/:username",(req,res)=>{
     const role = req.query.role;
     res.send(`Welcome ${username} your role is ${role}`)
 })
-app.get("/products",(req,res)=>{
-    res.json({
-        message:"Here is the list of all products ",
-        data:products
-    });
-})
 
-app.post("/products",(req,res)=>{
-    const {productName} = req.body;
-    const newProduct = {id:products.length+1,productName};
-    products.push(newProduct);
-    res.status(201).json(newProduct);
-})
-
-app.get("/categories",(req,res)=>{
-    res.json({
-        message:"Here is the list of all categories ",
-        data:categories
-    });
-})
-
-app.post("/categories",(req,res)=>{
-    const {categoryName} = req.body;
-    const newCategory = {id:categories.length+1,categoryName};
-    categories.push(newCategory);
-    res.status(201).json(newCategory);
-})
 
 app.use((req,res,next)=>{
     res.status(404).send(`<h1>404 - Page not found</h1>`);

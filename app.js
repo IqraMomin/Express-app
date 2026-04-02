@@ -13,7 +13,7 @@ const products = [
     {id:5,productName:"Laptop Case"},     
 ]
 
-const category = [
+const categories = [
     {id:1,categoryName:"Electronics"},
     {id:2,categoryName:"Accessories"},
     
@@ -44,17 +44,17 @@ app.post("/products",(req,res)=>{
     res.status(201).json(newProduct);
 })
 
-app.get("/category",(req,res)=>{
+app.get("/categories",(req,res)=>{
     res.json({
-        message:"Here is the list of all category ",
-        data:category
+        message:"Here is the list of all categories ",
+        data:categories
     });
 })
 
-app.post("/category",(req,res)=>{
+app.post("/categories",(req,res)=>{
     const {categoryName} = req.body;
-    const newCategory = {id:category.length+1,categoryName};
-    category.push(newCategory);
+    const newCategory = {id:categories.length+1,categoryName};
+    categories.push(newCategory);
     res.status(201).json(newCategory);
 })
 

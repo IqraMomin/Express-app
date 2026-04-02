@@ -3,6 +3,8 @@ const app = express();
 
 const port = 4000;
 
+app.use(express.json());
+
 const products = [
     {id:1,productName:"Mobile"},
     {id:2,productName:"Laptop"},
@@ -16,7 +18,11 @@ const category = [
     {id:2,categoryName:"Accessories"},
     
 ]
-
+app.get("/welcome/:username",(req,res)=>{
+    const username = req.params.username;
+    const role = req.query.role;
+    res.send(`Welcome ${username} your role is ${role}`)
+})
 app.get("/products",(req,res)=>{
     res.json({
         message:"Here is the list of all products ",
@@ -46,7 +52,7 @@ app.post("/category",(req,res)=>{
 })
 
 app.use((req,res,next)=>{
-    res.status(404).send("<h1>Page not found</h1>");
+    res.status(404).send(`<h1>404 - Page not found</h1>`);
 })
 
 app.listen(port,()=>{
